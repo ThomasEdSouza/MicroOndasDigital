@@ -60,7 +60,40 @@ namespace MicroOndas.Core
 
             Task.Run(() => Aquecer(_cts.Token));
         }
-            private async Task Aquecer(CancellationToken token)
+        public string IniciarAquecimento(int tempo, int potencia, CancellationToken token)
+        {
+            ValidarParametros(tempo, potencia);
+
+            var resultado = new StringBuilder();
+
+            for (int i = 0; i < tempo; i++)
+            {
+                token.ThrowIfCancellationRequested();
+
+                resultado.Append(new string('.', potencia));
+                Thread.Sleep(1000); 
+            }
+
+            resultado.Append(" Aquecimento concluído!");
+            return resultado.ToString();
+        }
+        public string InicioRapido(CancellationToken token)
+        {
+            int tempoPadrao = 30;
+            int potenciaPadrao = 8;
+
+            return IniciarAquecimento(tempoPadrao, potenciaPadrao, token);
+        }
+
+        private void ValidarParametros(int tempo, int potencia)
+        {
+            if (tempo < 1 || tempo > 120)
+                throw new ArgumentException("Tempo deve estar entre 1 e 120 segundos.");
+
+            if (potencia < 1 || potencia > 10)
+                throw new ArgumentException("Potência deve estar entre 1 e 10.");
+        }
+        private async Task Aquecer(CancellationToken token)
         {
             var sb = new StringBuilder();
 
