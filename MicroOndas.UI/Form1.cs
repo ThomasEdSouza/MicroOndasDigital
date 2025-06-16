@@ -18,10 +18,14 @@ namespace MicroOndas.UI
             this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            this.KeyPreview = true;
+            this.KeyDown += Form1_KeyDown;
+
             ConfigurarTeclado();
             this.Load += Form1_Load;
             microondas = new Microondas();
             lblVisor.Text = "12:00";
+            txtTempo.Focus();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -46,27 +50,37 @@ namespace MicroOndas.UI
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(txtTempo.Text, out int tempo) && int.TryParse(txtPotencia.Text, out int potencia))
-            {
-                microondas.DefinirTempo(tempo);
-                microondas.DefinirPotencia(potencia);
-                microondas.IniciarAquecimento((texto) =>
-                {
-                    if (InvokeRequired)
-                    {
-                        Invoke(new Action(() => lblVisor.Text = texto));
-
-                    }
-                    else
-                    {
-                        lblVisor.Text = texto;
-                    }
-                });
-            }
-            else
+            if (!int.TryParse(txtTempo.Text, out int tempo) || !int.TryParse(txtPotencia.Text, out int potencia))
             {
                 MessageBox.Show("Insira tempo e potência válidos.");
+                return;
             }
+
+            if (tempo < 1 || tempo > 300)
+            {
+                MessageBox.Show("O tempo deve estar entre 1 e 300 segundos.");
+                return;
+            }
+
+            if (potencia < 1 || potencia > 10)
+            {
+                MessageBox.Show("A potência deve estar entre 1 e 10.");
+                return;
+            }
+
+            microondas.DefinirTempo(tempo);
+            microondas.DefinirPotencia(potencia);
+            microondas.IniciarAquecimento((texto) =>
+            {
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() => lblVisor.Text = texto));
+                }
+                else
+                {
+                    lblVisor.Text = texto;
+                }
+            });
         }
 
         private async void btnCancela_Click(object sender, EventArgs e)
@@ -152,7 +166,24 @@ namespace MicroOndas.UI
                 pnlTeclado.Controls.Add(botao);
             }
         }
-
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnIniciarAquecimento.PerformClick();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnCancela.PerformClick();
+                e.Handled = true;
+            }
+            else if (e.Control && e.KeyCode == Keys.L)
+            {
+                btnLimpar.PerformClick();
+                e.Handled = true;
+            }
+        }
         private void Form1_Load_2(object sender, EventArgs e)
         {
 

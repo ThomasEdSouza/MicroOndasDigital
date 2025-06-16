@@ -38,6 +38,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtTempo = new System.Windows.Forms.TextBox();
             this.lblTempo = new System.Windows.Forms.Label();
             this.txtPotencia = new System.Windows.Forms.TextBox();
@@ -62,6 +63,11 @@
             this.bt07 = new System.Windows.Forms.Button();
             this.bt08 = new System.Windows.Forms.Button();
             this.bt09 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip5 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlVisor.SuspendLayout();
             this.grpProgramas.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +78,7 @@
             this.txtTempo.Name = "txtTempo";
             this.txtTempo.Size = new System.Drawing.Size(80, 20);
             this.txtTempo.TabIndex = 0;
+            this.toolTip4.SetToolTip(this.txtTempo, "Insira o tempo entre 1 e 300");
             // 
             // lblTempo
             // 
@@ -87,6 +94,7 @@
             this.txtPotencia.Name = "txtPotencia";
             this.txtPotencia.Size = new System.Drawing.Size(80, 20);
             this.txtPotencia.TabIndex = 2;
+            this.toolTip5.SetToolTip(this.txtPotencia, "Insira Potência entre 1 e 10");
             // 
             // lblPotencia
             // 
@@ -104,7 +112,8 @@
             this.btnIniciarAquecimento.Name = "btnIniciarAquecimento";
             this.btnIniciarAquecimento.Size = new System.Drawing.Size(80, 30);
             this.btnIniciarAquecimento.TabIndex = 4;
-            this.btnIniciarAquecimento.Text = "Início";
+            this.btnIniciarAquecimento.Text = "▶️ Início";
+            this.toolTip1.SetToolTip(this.btnIniciarAquecimento, "Enter");
             this.btnIniciarAquecimento.UseVisualStyleBackColor = false;
             this.btnIniciarAquecimento.Click += new System.EventHandler(this.btnInicio_Click);
             // 
@@ -116,7 +125,8 @@
             this.btnCancela.Name = "btnCancela";
             this.btnCancela.Size = new System.Drawing.Size(80, 30);
             this.btnCancela.TabIndex = 5;
-            this.btnCancela.Text = "Cancelar";
+            this.btnCancela.Text = "❌ Cancelar";
+            this.toolTip2.SetToolTip(this.btnCancela, "Esc");
             this.btnCancela.UseVisualStyleBackColor = false;
             this.btnCancela.Click += new System.EventHandler(this.btnCancela_Click);
             // 
@@ -128,7 +138,8 @@
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(80, 30);
             this.btnLimpar.TabIndex = 6;
-            this.btnLimpar.Text = "Limpar";
+            this.btnLimpar.Text = "🧹 Limpar";
+            this.toolTip2.SetToolTip(this.btnLimpar, "Ctrl + L");
             this.btnLimpar.UseVisualStyleBackColor = false;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
@@ -137,7 +148,7 @@
             this.lblVisor.BackColor = System.Drawing.Color.Black;
             this.lblVisor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblVisor.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVisor.ForeColor = System.Drawing.Color.GreenYellow;
+            this.lblVisor.ForeColor = System.Drawing.Color.Cyan;
             this.lblVisor.Location = new System.Drawing.Point(0, 0);
             this.lblVisor.Name = "lblVisor";
             this.lblVisor.Size = new System.Drawing.Size(456, 46);
@@ -183,7 +194,7 @@
             this.btnPipoca.Name = "btnPipoca";
             this.btnPipoca.Size = new System.Drawing.Size(75, 23);
             this.btnPipoca.TabIndex = 0;
-            this.btnPipoca.Text = "Pipoca";
+            this.btnPipoca.Text = "🍿 Pipoca";
             this.btnPipoca.UseVisualStyleBackColor = false;
             this.btnPipoca.Click += new System.EventHandler(this.btnPipoca_Click_1);
             // 
@@ -195,7 +206,7 @@
             this.btnRefeicao.Name = "btnRefeicao";
             this.btnRefeicao.Size = new System.Drawing.Size(75, 23);
             this.btnRefeicao.TabIndex = 1;
-            this.btnRefeicao.Text = "Refeição";
+            this.btnRefeicao.Text = "🍽️ Refeição";
             this.btnRefeicao.UseVisualStyleBackColor = false;
             this.btnRefeicao.Click += new System.EventHandler(this.btnRefeicao_Click);
             // 
@@ -203,11 +214,11 @@
             // 
             this.btnDescongelar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnDescongelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDescongelar.Location = new System.Drawing.Point(66, 68);
+            this.btnDescongelar.Location = new System.Drawing.Point(60, 69);
             this.btnDescongelar.Name = "btnDescongelar";
-            this.btnDescongelar.Size = new System.Drawing.Size(75, 23);
+            this.btnDescongelar.Size = new System.Drawing.Size(93, 23);
             this.btnDescongelar.TabIndex = 2;
-            this.btnDescongelar.Text = "Descongelar";
+            this.btnDescongelar.Text = "❄️ Descongelar";
             this.btnDescongelar.UseVisualStyleBackColor = false;
             this.btnDescongelar.Click += new System.EventHandler(this.btnDescongelar_Click);
             // 
@@ -315,5 +326,11 @@
             this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.ToolTip toolTip3;
+        private System.Windows.Forms.ToolTip toolTip4;
+        private System.Windows.Forms.ToolTip toolTip5;
     }
 }
