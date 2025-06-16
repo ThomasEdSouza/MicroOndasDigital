@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using MicroOndas.Core;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MicroOndas.Core;
-using System.Threading;
 
 namespace MicroOndas.UI
 {
@@ -16,11 +10,15 @@ namespace MicroOndas.UI
     {
         private Microondas microondas;
         private CancellationTokenSource _cts;
-        private TextBox _campoAtivo; // <- Novo campo
+        private TextBox _campoAtivo;
 
         public Form1()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            ConfigurarTeclado();
             this.Load += Form1_Load;
             microondas = new Microondas();
             lblVisor.Text = "12:00";
@@ -28,7 +26,7 @@ namespace MicroOndas.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Atribuir todos os botões numéricos ao mesmo evento
+
             bt00.Click += TecladoNumerico_Click;
             bt01.Click += TecladoNumerico_Click;
             bt02.Click += TecladoNumerico_Click;
@@ -40,10 +38,8 @@ namespace MicroOndas.UI
             bt08.Click += TecladoNumerico_Click;
             bt09.Click += TecladoNumerico_Click;
 
-            // Garante que txtTempo seja o campo padrão
             _campoAtivo = txtTempo;
 
-            // Atribui os eventos Enter dos TextBox
             txtTempo.Enter += txtTempo_Enter;
             txtPotencia.Enter += txtPotencia_Enter;
         }
@@ -59,6 +55,7 @@ namespace MicroOndas.UI
                     if (InvokeRequired)
                     {
                         Invoke(new Action(() => lblVisor.Text = texto));
+
                     }
                     else
                     {
@@ -94,7 +91,7 @@ namespace MicroOndas.UI
                 }
                 else
                 {
-                    txtTempo.Text += numero; // padrão
+                    txtTempo.Text += numero;
                 }
             }
         }
@@ -117,7 +114,7 @@ namespace MicroOndas.UI
         }
         private void btnPipoca_Click_1(object sender, EventArgs e)
         {
-            txtTempo.Text = "180"; 
+            txtTempo.Text = "180";
             txtPotencia.Text = "8";
         }
         private void btnRefeicao_Click(object sender, EventArgs e)
@@ -127,7 +124,7 @@ namespace MicroOndas.UI
         }
         private void btnDescongelar_Click(object sender, EventArgs e)
         {
-            txtTempo.Text = "240"; 
+            txtTempo.Text = "240";
             txtPotencia.Text = "3";
         }
         private void textBox2_TextChanged(object sender, EventArgs e) { }
@@ -136,6 +133,27 @@ namespace MicroOndas.UI
         private void lblVisor_Click(object sender, EventArgs e) { }
 
         private void Form1_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ConfigurarTeclado()
+        {
+            for (int i = 0; i <= 9; i++)
+            {
+                var botao = new Button
+                {
+                    Text = i.ToString(),
+                    Size = new System.Drawing.Size(50, 40),
+                    Location = new System.Drawing.Point((i % 3) * 60 + 10, (i / 3) * 45 + 10),
+                    Name = "btnNum" + i
+                };
+                botao.Click += TecladoNumerico_Click;
+                pnlTeclado.Controls.Add(botao);
+            }
+        }
+
+        private void Form1_Load_2(object sender, EventArgs e)
         {
 
         }

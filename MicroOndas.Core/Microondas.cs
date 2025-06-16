@@ -41,7 +41,7 @@ namespace MicroOndas.Core
                 if (!token.IsCancellationRequested)
                 {
                     atualizarVisor?.Invoke("Aquecido!");
-                    Console.Beep(); 
+                    Console.Beep();
                 }
             }, token);
         }
